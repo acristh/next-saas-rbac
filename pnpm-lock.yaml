@@ -33,7 +33,23 @@ importers:
         specifier: ^0.5.14
         version: 0.5.14(prettier@3.2.5)
 
-  config/typescript-config: {}
+  config/typescript-config:
+    devDependencies:
+      '@tsconfig/vite-react':
+        specifier: ^3.0.2
+        version: 3.0.2
+
+  packages/auth:
+    devDependencies:
+      '@saas/eslint-config':
+        specifier: workspace:*
+        version: link:../../config/eslint-config
+      '@saas/prettier':
+        specifier: workspace:*
+        version: link:../../config/prettier
+      '@saas/tsconfig':
+        specifier: workspace:*
+        version: link:../../config/typescript-config
 
 packages:
 
@@ -160,6 +176,10 @@ packages:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
+    dev: true
+
+  /@tsconfig/vite-react@3.0.2:
+    resolution: {integrity: sha512-AFynAtE1Un3Rko20Ghe2mVC/QWD4rStJ2PnyIZU2kzC4UyWpf1YhAEY87GojH/XPZCY8Mdt27gsYyy+6l6HV+w==}
     dev: true
 
   /@types/json-schema@7.0.15:
