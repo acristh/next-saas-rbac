@@ -1,3 +1,4 @@
+import { prisma } from '@/lib/prisma'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import type { FastifyInstance } from 'fastify/types/instance'
 import { z } from 'zod'
@@ -11,7 +12,19 @@ export async function createAccount(app: FastifyInstance) {
                 password: z.string().min(6),
             })
         },
-    }, () => {
-        return 'User created'
-    })
+    }, 
+    async (request, response) => {
+        const { name, email, password } = request.body
+
+        const userWithSameEmail = await prisma.user.findUnique({
+            where: { email }
+        })
+
+        if (userWithSameEmail) {
+            return response
+                .status(400)
+                .send({message: 'user with same e-mail already exists.'})
+        }
+    },
+)
 }
